@@ -3,13 +3,15 @@ import './App.css';
 import './fonts.css';
 import Navbar from './Components/Navbar';
 import InputField from './Components/InputFields/InputField';
+import SignUp from './Components/SignUp/SignUp';
+
 
 
 function App() {
   return (
     <div>
       <Navbar />
-        <InputField />
+      <SignUp />
       
 
       {/*<div className="App">

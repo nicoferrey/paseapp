@@ -5,8 +5,8 @@
     flex-direction: column;
     align-items: center;
     margin: auto;
-    margin-top: 200px;
-    padding-bottom: 30px;
+    /*margin-top: 200px;
+    padding-bottom: 30px;*/
 }
 
 .header{
@@ -15,7 +15,7 @@
     align-items: center;
     gap: 9px;
     width: 100%;
-    margin-top: 30px;
+    /*margin-top: 30px;*/
 }
 
 .text{
@@ -35,15 +35,16 @@
     flex-direction: column;
 }
 
-.row{
+.row-a{
     width: 100%;
     display: flex; /* Utilizamos flexbox para crear el diseño en columnas */
     justify-content: space-between; /* Espacio entre las columnas */
 }
-.column {
-    width: 50%;
-    padding-bottom: 20px;
+.column-a {
+    width: 49%;
 }
+
+
   
 /* Clear floats after the columns */
 .row:after {
@@ -55,11 +56,12 @@
 .login-box{
     position: relative;
     width: 470px;
-    height: 520px;
-    padding: 10px 30px;
+    /*height: 520px;*/
+    padding: 10px 10px 10px 40px;
     background: #FFF;
-    border: 1px solid #ddd;
+    /*border: 1px solid #ddd; */
     border-radius: 10px;
+    margin-top: 0px;
 
 }
 
@@ -70,7 +72,7 @@
     margin: 20px 0 50px 0;
 }
 .login-header header{
-    font-family: 'Poppins', sans-serif;
+    font-family: "Open Sans", sans-serif;
     color: #333;
     font-size: 30px;
     margin-bottom: 5px;
@@ -85,38 +87,41 @@
     display: flex;
     align-items: center;
     margin: auto;
+    margin-bottom: 15px;
 }
+
+
 .input-box label{
     position: absolute;
-    top: 15px;
+    /*top: 15px;*/
     left: 15px;
     color: #555;
     transition: .15s ease-in-out;
 }
 .input-box input{
     width: 100%;
-    height: 50px;
+    height: 40px;  /* ACA */
 }
 .input-box .input-field{
     font-size: 1em;
     color: #333;
     padding-left: 15px;
-    margin-bottom: 25px;
+    /*margin-bottom: 25px; */
     border: 1px solid #ddd;
     border-radius: 3px;
     outline: none;
 }
 .input-box input[type="password"]{
-    margin-bottom: 10px;
+    /*margin-bottom: 10px; */
 }
 .input-box .input-field:focus{
-    border: 2px solid #8749F2;
+    border: 2px solid #FF5B1B;
 }
 .input-field:focus ~ label, .input-field:valid ~ label{
     top: -8px;
     left: 12px;
     font-size: 12px;
-    color: #7931F5;
+    color: #FF5B1B;
     background: #FFF;
     padding: 0 5px;
 }
@@ -140,16 +145,17 @@ section{
 section .forgot-link{
     font-weight: 500;
     text-decoration: none;
-    color: #7931F5;
+    color: #FF5B1B;
 }
 .input-submit{
     font-family: "Open Sans", sans-serif;
     font-size: 13px;
     color: #FFF;
-    background: #7931F5;
+    background: #FF5B1B;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 20px;
 }
 .middle-text{
     position: relative;
@@ -211,9 +217,11 @@ button{
     opacity: 0.9;
 }
 .sign-up{
-    position: absolute;
-    bottom: -30px;
-    right: 0;
+    /*position: relative;*/
+    /*bottom: -30px;*/
+    /*right: 0;*/
+    margin-top: 10px; /* Espacio de 10px desde el elemento superior */
+    align-self: center; /* Centrado vertical */
 }
 .sign-up p{
     font-size: 14px;
@@ -221,6 +229,7 @@ button{
 }
 .sign-up p>a{
     text-decoration: none;
+    color: #FF5B1B;
 }
 
 .target-selector{
@@ -235,7 +244,7 @@ button{
     font-family: "Open Sans", sans-serif;
     font-size: 13px;
     color: #FFF;
-    background: #7931F5;
+    background: #FF5B1B;
     border: none;
     cursor: pointer;
 }
@@ -247,6 +256,118 @@ button{
 .btn-paseador{
     border-radius: 0px 5px 5px 0px;
 }
+
+.login-end {
+    display: flex;
+    flex-direction: column;
+}
+
+.warning {
+    font-size: 12px;
+    color: #FF5B1B;
+    font-weight: 400;
+}
+
+
+
+/* Parte B Form Usuario */
+.column-b {
+    float: left;
+}
+  
+.left {
+    width: 20%;
+}
+  
+.middle {
+    width: 61%;
+}
+
+.right {
+    width: 15%;
+    border: 2px;
+    border-color: #000;
+}
+
+/* Estilos para el botón de eliminar */
+.button.remove {
+    background-color: transparent;
+    border: 2px;
+    border-color: red;
+    cursor: pointer; /* Cambio de cursor al pasar el ratón */
+    border-radius: 4px; /* Bordes redondeados */
+    border-style: solid;
+    
+  }
+  
+  /* Estilos para el botón de agregar */
+  .button.add {
+    background-color: transparent;    
+    border: 2px;
+    border-color: rgb(75, 165, 63);
+    padding: 8px 16px; /* Relleno interno */
+    cursor: pointer; /* Cambio de cursor al pasar el ratón */
+    border-radius: 4px; /* Bordes redondeados */
+    border-style: solid;
+  }
+
+  .button.add svg {
+    color: rgb(75, 165, 63); /* Cambiar el color del icono */
+  }
+
+  .button.remove svg {
+    color: red; /* Cambiar el color del icono */
+  }
+  
+  /* Estilos para alinear el botón a la derecha */
+  .column-b.right {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 40px;
+  }
+
+/* Estilos para el dropdown */
+.input-box select {
+    width: 100%;
+    height: 40px;
+    font-size: 1em;
+    color: #333;
+    padding-left: 15px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    outline: none;
+  }
+  
+  /* Estilos para el label del dropdown */
+  .input-box select + label {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #555;
+    transition: .15s ease-in-out;
+    pointer-events: none; /* Evitar interacción con el label */
+  }
+  
+  /* Estilos para el label del dropdown cuando está enfocado o tiene valor */
+  .input-box select:focus + label,
+  .input-box select:valid + label {
+    top: -8px;
+    left: 12px;
+    font-size: 12px;
+    color: #FF5B1B;
+    background: #FFF;
+    padding: 0 5px;
+  }
+  
+  /* Estilos para el borde del dropdown cuando está enfocado */
+  .input-box select:focus {
+    border: 2px solid #FF5B1B;
+  }
+  
+  
 
 @media only screen and (max-width: 510px){
     .login-box{
