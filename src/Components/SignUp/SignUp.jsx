@@ -2,6 +2,7 @@ import './SignUp.css';
 import InputField from '../InputFields/InputField';
 import imgPet1 from '../../images/pet-1.jpg';
 import InputFieldUser from '../InputFields/InputFieldUser';
+import InputFieldPetsitter from '../InputFields/InputFieldPetsitter';
 
 const SignUp = () => {
     return ( 
@@ -22,7 +23,9 @@ const SignUp = () => {
                 </div>
                 <div className="column-form">
                   {/*<InputField />*/}
-                  <InputFieldUser />
+                  {/*<InputFieldUser /> */}
+                  <InputFieldPetsitter />
+                  
 
                 </div>
               </div>
