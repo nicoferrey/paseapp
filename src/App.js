@@ -4,6 +4,7 @@ import './fonts.css';
 import Navbar from './Components/Navbar';
 import InputField from './Components/InputFields/InputField';
 import SignUp from './Components/SignUp/SignUp';
+import LogIn from './Components/LogIn/LogIn';
 
 
 
@@ -11,7 +12,9 @@ function App() {
   return (
     <div>
       <Navbar />
-      <SignUp />
+      {/*<SignUp /> */}
+      <LogIn />
+
       
 
       {/*<div className="App">

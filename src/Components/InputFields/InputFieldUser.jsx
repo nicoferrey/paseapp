@@ -55,6 +55,10 @@ const InputFieldUser = () => {
                             </div>
                         </div>
                     </div> */}
+                    <div className="login-header">
+                        <header>Paso 2: Completa tu perfil</header>
+                        <p>Contanos un poco sobre tus mascotas. </p>
+                    </div>
                     {formValues.map((element, index) => (
                         <div className="row-a" key={index}>
                             <div className="column-b left">
