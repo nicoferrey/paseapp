@@ -5,6 +5,7 @@ import Navbar from './Components/Navbar';
 import InputField from './Components/InputFields/InputField';
 import SignUp from './Components/SignUp/SignUp';
 import LogIn from './Components/LogIn/LogIn';
+import EcommerceSearch from './Components/EcommerceSeach/EcommerceSearch'
 
 
 
@@ -13,7 +14,9 @@ function App() {
     <div>
       <Navbar />
       {/*<SignUp /> */}
-      <LogIn />
+      {/*<LogIn />*/}
+      <EcommerceSearch />
+
 
       
 
