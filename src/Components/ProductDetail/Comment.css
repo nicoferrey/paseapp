@@ -1,0 +1,26 @@
+.comment-card {
+    width: 100%;
+    border: 2px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    padding: 1em 2em;
+    margin: 0.7em 0;
+}
+
+div.comment-header {
+    display: inline-flex;
+    justify-content: space-between;
+    /*margin-bottom: 0.5em; */
+}
+
+.comment-username {
+    font-weight: 700;
+}
+
+.comment-text {
+    font-size: 0.8em;
+}

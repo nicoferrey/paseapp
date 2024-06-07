@@ -6,9 +6,36 @@ import products from "../../db/data";
 import Recommended from "../Recommended/Recommended";
 import Sidebar from "../Sidebar/Sidebar";
 import Card from "../Card/Card";
+import Filter from "../Sidebar/Filter";
 //import "./index.css";
 
 function EcommerceSearch() {
+  const [filters, setFilters] = useState({
+    categories: [],
+    petTypes: [],
+    frequencies: [],
+    dateRange: { start: '', end: '' },
+    rating: 0,
+    zones: []
+  });
+
+  const applyFilters = (products, filters) => {
+    return products.filter(product => {
+      const categoryMatch = filters.categories.length === 0 || filters.categories.includes(product.category);
+      const petTypeMatch = filters.petTypes.length === 0 || filters.petTypes.includes(product.petType);
+      const frequencyMatch = filters.frequencies.length === 0 || filters.frequencies.includes(product.frequency);
+      const dateRangeMatch = (!filters.dateRange.start || new Date(product.date) >= new Date(filters.dateRange.start)) &&
+                             (!filters.dateRange.end || new Date(product.date) <= new Date(filters.dateRange.end));
+      const ratingMatch = product.rating >= filters.rating;
+      const zoneMatch = filters.zones.length === 0 || filters.zones.includes(product.zone);
+      
+      return categoryMatch && petTypeMatch && frequencyMatch && dateRangeMatch && ratingMatch && zoneMatch;
+    });
+  };
+
+  // DE ACA OARA ABAJO NO USO
+  const filteredProducts = applyFilters(products, filters);
+
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   // ----------- Input Filter -----------
@@ -52,7 +79,8 @@ function EcommerceSearch() {
       );
     }
 
-    return filteredProducts.map(
+    return (
+      filteredProducts.map(
       ({ img, title, star, reviews, prevPrice, newPrice }) => (
         <Card
           key={Math.random()}
@@ -63,7 +91,9 @@ function EcommerceSearch() {
           prevPrice={prevPrice}
           newPrice={newPrice}
         />
+        )
       )
+
     );
   }
 

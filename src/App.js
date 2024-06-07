@@ -5,17 +5,36 @@ import Navbar from './Components/Navbar';
 import InputField from './Components/InputFields/InputField';
 import SignUp from './Components/SignUp/SignUp';
 import LogIn from './Components/LogIn/LogIn';
-import EcommerceSearch from './Components/EcommerceSeach/EcommerceSearch'
+import EcommerceSearch from './Components/EcommerceSeach/EcommerceSearch';
+import ProductDetail from './Components/ProductDetail/ProductDetail';
+
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 
 
 function App() {
   return (
-    <div>
+    <Router>
       <Navbar />
-      {/*<SignUp /> */}
+      <Routes>
+        <Route path="/" element={<EcommerceSearch />} />
+        <Route path="/login" element={<LogIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/product" element={<ProductDetail />} />
+        <Route path="/contact" element={<EcommerceSearch />} />
+      </Routes>
+    </Router>
+    
+  );
+}
+
+export default App;
+
+{/*<div>
+      <Navbar />
+      <SignUp /> */}
       {/*<LogIn />*/}
-      <EcommerceSearch />
+      {/*<EcommerceSearch /> */}
 
 
       
@@ -37,8 +56,4 @@ function App() {
           Learn React
         </a>
       </header> */}
-    </div>
-  );
-}
-
-export default App;
+      {/*</div> */}

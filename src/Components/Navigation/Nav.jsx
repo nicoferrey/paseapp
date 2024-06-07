@@ -4,7 +4,7 @@ import "./Nav.css";
 
 const Nav = ({ handleInputChange, query }) => {
   return (
-    <nav>
+    <nav className="searchbox">
       <div className="nav-container">
         <input
           className="search-input"

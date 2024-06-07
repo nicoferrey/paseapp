@@ -4,7 +4,8 @@ import Input from "../../Input/Input";
 function Category({ handleChange }) {
   return (
     <div>
-      <h2 className="sidebar-title">Category</h2>
+      <div className="line-divider"></div>
+      <h2 className="sidebar-title">Categoria</h2>
 
       <div>
         <label className="sidebar-label-container">
@@ -13,26 +14,20 @@ function Category({ handleChange }) {
         </label>
         <Input
           handleChange={handleChange}
-          value="sneakers"
-          title="Sneakers"
+          value="adiestramiento"
+          title="Adiestramiento"
           name="test"
         />
         <Input
           handleChange={handleChange}
-          value="flats"
-          title="Flats"
+          value="cuidado domestico"
+          title="Cuidado domestico"
           name="test"
         />
         <Input
           handleChange={handleChange}
-          value="sandals"
-          title="Sandals"
-          name="test"
-        />
-        <Input
-          handleChange={handleChange}
-          value="heels"
-          title="Heels"
+          value="paseo"
+          title="Paseo"
           name="test"
         />
       </div>
