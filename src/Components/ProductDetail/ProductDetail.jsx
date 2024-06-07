@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
+
 import { FaDog } from "react-icons/fa6";
 import StarRating from "../StarRating/StarRating";
 import "./ProductDetail.css";
@@ -6,24 +9,26 @@ import PrimaryButton from "../Buttons/PrimaryButton";
 import imgpaseador from "../../images/about-petsitter.png";
 import Comment from "./Comment";
 import { IoIosClose } from "react-icons/io";
+import PetsButton from "../Buttons/PetsButton";
 
 
 const ProductDetail = () => {
-    const [estado, setEstado] = useState("Inactivo"); // Puedes cambiar el estado para probar diferentes valores
+    // Display color according STATUS
+    const [estado, setEstado] = useState("ACTIVO"); 
 
     const getEstadoStyles = (estado) => {
         switch (estado) {
-            case "Activo":
+            case "ACTIVO":
                 return {
                     boxBorder: "1.5px solid #0FEC5C",
                     circleColor: "#0FEC5C",
                 };
-            case "Inactivo":
+            case "INACTIVO":
                 return {
                     boxBorder: "1.5px solid #FE2400",
                     circleColor: "#FE2400",
                 };
-            case "Pendiente":
+            case "PENDIENTE":
                 return {
                     boxBorder: "1.5px solid orange",
                     circleColor: "orange",
@@ -38,10 +43,66 @@ const ProductDetail = () => {
 
     const estadoStyles = getEstadoStyles(estado);
 
+    // Handle onClick close product
     const handleIconClick = () => {
         // Define la acción que deseas realizar al hacer clic en el icono
         console.log("Icono de cierre clicado");
     };
+
+    // Switch view to edit
+    const [editable, setEditable] = useState(false);
+    const toggleEdit = () => {
+        setEditable(!editable);
+    };
+
+    const showField = () => {
+        setEditable(!editable);
+    };
+
+    // Options Edit Checkbox
+    const animatedComponents = makeAnimated();
+    const freq = [
+        { value: 'diaria', label: 'Diaria' },
+        { value: 'semanal', label: 'Semanal' },
+        { value: 'mensual', label: 'Mensual' }
+    ]
+    const zone = [
+        { value: 'bsas', label: 'Buenos Aires' },
+        { value: 'cordoba', label: 'Cordoba' },
+        { value: 'tucuman', label: 'Tucuman' }
+    ]
+    const cat = [
+        { value: 'adiestramiento', label: 'Adiestramiento' },
+        { value: 'paseo', label: 'Paseo' },
+        { value: 'cuidado', label: 'Cuidado' }
+    ]
+    const time = [
+        { value: '1-2hs', label: '1 - 2 hs' },
+        { value: 'dia', label: '1 dia' },
+        { value: 'semana', label: '1 semana' }
+    ]
+
+    const status = [
+        { value: 'activo', label: 'ACTIVO' },
+        { value: 'inactivo', label: 'INACTIVO' },
+        { value: 'pendiente', label: 'PENDIENTE' }
+    ]
+
+    //Pets button on Edit
+    const [selectedButtons, setSelectedButtons] = useState({
+        Perro: false,
+        Gato: false,
+    });
+
+    const handleButtonClick = (item) => {
+        setSelectedButtons(prevState => ({
+            ...prevState,
+            [item]: !prevState[item]
+        }));
+    };
+
+    const selectedItems = Object.keys(selectedButtons).filter(key => selectedButtons[key]);  //evuelve la clave de los valores true (seleccioandos)
+
 
 
     return ( 
@@ -49,19 +110,42 @@ const ProductDetail = () => {
             <IoIosClose className="close-icon" onClick={handleIconClick} size={30}/>
             <div className="important-info">
             <main className="product-detail">
+                {/*<section className="pet-details">
+                    <div className="circle-icon"><FaDog className="pet-icon" title="Perro" /></div>
+                    <div className="circle-icon"><FaDog className="pet-icon" title="Perro" /></div>
+                </section> */}
                 <section className="pet-details">
-                    <div className="circle-icon"><FaDog className="pet-icon" title="Perro" /></div>
-                    <div className="circle-icon"><FaDog className="pet-icon" title="Perro" /></div>
+                    <h3 className="product-subtitle">Mascotas</h3>
+                    <PetsButton 
+                        item="Perro" 
+                        selected={selectedButtons.Perro} 
+                        onClick={() => handleButtonClick("Perro")}
+                    />
+                    <PetsButton 
+                        item="Gato" 
+                        selected={selectedButtons.Gato} 
+                        onClick={() => handleButtonClick("Gato")}
+                    />
                 </section>
-                <h2 className="product-title">Paseo extensivo de mascotas</h2>
+                {editable ? (
+                    <input type="text" defaultValue="" placeholder="Editable Field 1" className="product-edit-fields" maxLength={100}/>  // Placeholder if new, default if edit
+                ) : (
+                    <h2 className="product-title">Paseo extensivo de mascotas</h2>
+                )}
+                {/*<h2 className="product-title">Paseo extensivo de mascotas</h2> */}
                 <div className="reviews">
                     <p>4.2</p>
                     <StarRating rating = {1.2}/>
                     <p>(433 resenas)</p>
                 </div>
-                <p className="product-description">
-                DESCRIPCION del servicio Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                </p>
+                {editable ? (
+                    <textarea type="text" defaultValue="" placeholder="Editable Field 1" className="product-edit-fields" maxLength={1000} rows={6}/>  // Placeholder if new, default if edit
+                ) : (
+                    <p className="product-description">
+                    DESCRIPCION del servicio Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                    </p>
+                )}
+                
 
                 <h3 className="product-subtitle">Caracteristicas servicio</h3>
                 <div className="product-info-table">
@@ -69,15 +153,44 @@ const ProductDetail = () => {
                         <div className="column-b">
                             <div className="line-vertical"></div>
                             <div className="characteristic-content">
-                                <p className="product-characteristic">caracteristica</p>
-                                <p className="product-characteristic-text">caracteristica</p>
+                                <p className="product-characteristic">Frecuencia</p>
+                                {editable ? (
+                                    <div className="product-characteristic-text">
+                                        <Select
+                                            closeMenuOnSelect={false}
+                                            components={animatedComponents}
+                                            defaultValue={[]}
+                                            isMulti
+                                            options={freq}
+                                            placeholder={"Selecciona la frecuencia"}
+                                        />
+                                    </div>
+                                ) : (
+                                    <p className="product-characteristic-text">caracteristica</p>
+                                )}
+                                
+                                
+                                
                             </div>
                         </div>
                         <div className="column-b">
                             <div className="line-vertical"></div>
                             <div className="characteristic-content">
-                                <p className="product-characteristic">caracteristica</p>
-                                <p className="product-characteristic-text">caracteristica</p>
+                                <p className="product-characteristic">Categoria</p>
+                                {editable ? (
+                                    <div className="product-characteristic-text">
+                                        <Select
+                                            closeMenuOnSelect={false}
+                                            components={animatedComponents}
+                                            defaultValue={[]}
+                                            isMulti
+                                            options={cat}
+                                            placeholder={"Selecciona la categoria"}
+                                        />
+                                    </div>
+                                ) : (
+                                    <p className="product-characteristic-text">caracteristica</p>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -85,15 +198,41 @@ const ProductDetail = () => {
                         <div className="column-b">
                             <div className="line-vertical"></div>
                             <div className="characteristic-content">
-                                <p className="product-characteristic">caracteristica</p>
-                                <p className="product-characteristic-text">caracteristica</p>
+                                <p className="product-characteristic">Zona</p>
+                                {editable ? (
+                                    <div className="product-characteristic-text">
+                                        <Select
+                                            closeMenuOnSelect={false}
+                                            components={animatedComponents}
+                                            defaultValue={[]}
+                                            isMulti
+                                            options={zone}
+                                            placeholder={"Selecciona la zona"}
+                                        />
+                                    </div>
+                                ) : (
+                                    <p className="product-characteristic-text">caracteristica</p>
+                                )}
                             </div>
                         </div>
                         <div className="column-b">
                             <div className="line-vertical"></div>
                             <div className="characteristic-content">
-                                <p className="product-characteristic">caracteristica</p>
-                                <p className="product-characteristic-text">caracteristica</p>
+                                <p className="product-characteristic">Duracion</p>
+                                {editable ? (
+                                    <div className="product-characteristic-text">
+                                        <Select
+                                            closeMenuOnSelect={false}
+                                            components={animatedComponents}
+                                            defaultValue={[]}
+                                            isMulti
+                                            options={time}
+                                            placeholder={"Selecciona la duracion"}
+                                        />
+                                    </div>
+                                ) : (
+                                    <p className="product-characteristic-text">caracteristica</p>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -103,19 +242,43 @@ const ProductDetail = () => {
             <aside className="product-action">
                 <div className="product-state">
                     <p className="estado">Estado</p>
-                    <div className="box-estado" style={{ border: estadoStyles.boxBorder }}>
-                        <div className="circle" style={{ backgroundColor: estadoStyles.circleColor }}></div>
-                        <p className="estado-text">{estado}</p>
-                    </div>
+                    {editable ? (
+                        <div className="product-characteristic-text">
+                            <Select
+                                closeMenuOnSelect={false}
+                                components={animatedComponents}
+                                defaultValue={"INACTIVO"}
+                                options={status}
+                                placeholder={"Selecciona estado"}
+                            />
+                        </div>
+                    ) : (
+                        <div className="box-estado" style={{ border: estadoStyles.boxBorder }}>
+                            <div className="circle" style={{ backgroundColor: estadoStyles.circleColor }}></div>
+                            <p className="estado-text">{estado}</p>
+                        </div>
+                    )}
+                    
                 </div>
-                <p className="precio">Precio</p>
-                <p className="valor-precio">$10.000</p>
+                <div className="price-section">
+                    <p className="precio">Precio</p>
+                    {editable ? (
+                        <input type="number" defaultValue="" placeholder="$XX.XXX" className="product-edit-fields-number" maxLength={10}/>  // Placeholder if new, default if edit
+                    ) : (
+                        <p className="valor-precio">$10.000</p>
+                    )}
+                </div>
                 <div className="product-petsitter">
                     <p className="petsitter">Servicio ofrecido por</p>
-                    <p className="petsitter">USUARIO XXYY</p>
+                    <p className="petsitter petsitter-user">USUARIO XXYY</p>
 
                 </div>
-                <PrimaryButton value={"Comprar"} onClick={""}/>
+                {editable ? (
+                    <PrimaryButton value={"Guardar"} onClick={""}/>) 
+                : (
+                    <PrimaryButton value={"Solicitar"} onClick={""}/>
+                )}
+                
             </aside>
             </div>
             <section className="about-petsitter">
@@ -125,7 +288,7 @@ const ProductDetail = () => {
                     <p className="about">DESCRIPCION del servicio Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
                 </div>
             </section>
-            <h3 className="product-subtitle">Caracteristicas servicio</h3>
+            <h3 className="product-subtitle">Comentarios</h3>
             <Comment user={"NICO"} stars={4.2} text={"LOLOLO"}/>
             <Comment user={"NICOSSSS"} stars={4.2} text={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore"}/>
 

@@ -1,8 +1,9 @@
+import React, { useState } from "react";
 import Category from "./Category/Category";
 import Price from "./Price/Price";
 import Color from "./Color/Color";
 import "./Sidebar.css";
-import Filters from "./Filter";
+import Filter from "./Filter";
 
 const Sidebar = ({ handleChange }) => {
   const [filters, setFilters] = useState({});
