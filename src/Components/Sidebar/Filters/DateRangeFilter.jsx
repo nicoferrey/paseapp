@@ -1,22 +1,41 @@
 import React from 'react';
 
-const DateRangeFilter = ({ dateRange, setDateRange }) => {
+const DateRangeFilter = ({ filters, setFilters }) => {
   const handleDateChange = (e) => {
     const { name, value } = e.target;
-    setDateRange(prev => ({ ...prev, [name]: value }));
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      dateRange: {
+        ...prevFilters.dateRange,
+        [name]: value
+      }
+    }));
   };
 
   return (
-    <div>
-      <h3>Duración</h3>
-      <label>
-        Desde: <input type="date" name="start" onChange={handleDateChange} />
+    <div className="date-range-filter">
+      <h3 className="sidebar-title">Duración</h3>
+      <label className="sidebar-label-container">
+        Desde: 
+        <input
+          type="date"
+          name="start"
+          value={filters.dateRange.start}
+          onChange={handleDateChange}
+        />
       </label>
-      <label>
-        Hasta: <input type="date" name="end" onChange={handleDateChange} />
+      <label className="sidebar-label-container">
+        Hasta: 
+        <input
+          type="date"
+          name="end"
+          value={filters.dateRange.end}
+          onChange={handleDateChange}
+        />
       </label>
     </div>
   );
 };
 
 export default DateRangeFilter;
+

@@ -1,3 +1,5 @@
+import React from "react";
+import Card from "../Card/Card";
 import "./Products.css";
 
 const Products = ({ result }) => {

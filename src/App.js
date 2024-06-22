@@ -7,6 +7,7 @@ import SignUp from './Components/SignUp/SignUp';
 import LogIn from './Components/LogIn/LogIn';
 import EcommerceSearch from './Components/EcommerceSeach/EcommerceSearch';
 import ProductDetail from './Components/ProductDetail/ProductDetail';
+import MyProfile from './Components/MyProfile/MyProfile';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/product" element={<ProductDetail />} />
         <Route path="/contact" element={<EcommerceSearch />} />
+        <Route path="/profile" element={<MyProfile />} />
       </Routes>
     </Router>
     

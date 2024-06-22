@@ -1,19 +1,32 @@
 import React from 'react';
 
-const PetTypeFilter = ({ petTypes, setPetTypes }) => {
+const PetTypeFilter = ({ filters, setFilters }) => {
   const handleCheckboxChange = (value) => {
-    setPetTypes(prev => prev.includes(value) ? prev.filter(v => v !== value) : [...prev, value]);
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      petTypes: prevFilters.petTypes.includes(value)
+        ? prevFilters.petTypes.filter(v => v !== value)
+        : [...prevFilters.petTypes, value]
+    }));
   };
 
   return (
-    <div>
-      <h3>Tipo de Mascota</h3>
-      <label>
-        <input type="checkbox" onChange={() => handleCheckboxChange('gato')} />
+    <div className="pet-type-filter">
+      <h3 className="sidebar-title">Tipo de Mascota</h3>
+      <label className="sidebar-label-container">
+        <input
+          type="checkbox"
+          onChange={() => handleCheckboxChange('gato')}
+          checked={filters.petTypes.includes('gato')}
+        />
         Gato
       </label>
-      <label>
-        <input type="checkbox" onChange={() => handleCheckboxChange('perro')} />
+      <label className="sidebar-label-container">
+        <input
+          type="checkbox"
+          onChange={() => handleCheckboxChange('perro')}
+          checked={filters.petTypes.includes('perro')}
+        />
         Perro
       </label>
       {/* Añade más tipos de mascota según sea necesario */}

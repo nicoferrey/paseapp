@@ -1,19 +1,32 @@
 import React from 'react';
 
-const ZoneFilter = ({ zones, setZones }) => {
+const ZoneFilter = ({ filters, setFilters }) => {
   const handleCheckboxChange = (value) => {
-    setZones(prev => prev.includes(value) ? prev.filter(v => v !== value) : [...prev, value]);
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      zones: prevFilters.zones.includes(value)
+        ? prevFilters.zones.filter(v => v !== value)
+        : [...prevFilters.zones, value]
+    }));
   };
 
   return (
-    <div>
-      <h3>Zona de CABA</h3>
-      <label>
-        <input type="checkbox" onChange={() => handleCheckboxChange('zona1')} />
+    <div className="zone-filter">
+      <h3 className="sidebar-title">Zona de CABA</h3>
+      <label className="sidebar-label-container">
+        <input
+          type="checkbox"
+          onChange={() => handleCheckboxChange('zona1')}
+          checked={filters.zones.includes('zona1')}
+        />
         Zona 1
       </label>
-      <label>
-        <input type="checkbox" onChange={() => handleCheckboxChange('zona2')} />
+      <label className="sidebar-label-container">
+        <input
+          type="checkbox"
+          onChange={() => handleCheckboxChange('zona2')}
+          checked={filters.zones.includes('zona2')}
+        />
         Zona 2
       </label>
       {/* Añade más zonas según sea necesario */}

@@ -24,3 +24,26 @@ div.comment-header {
 .comment-text {
     font-size: 0.8em;
 }
+
+.comment-actions {
+    display: flex;
+    margin-left: 8px;
+}
+
+.action-button {
+    padding: 4px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+}
+
+.action-button:hover {
+    text-decoration: underline;
+}
+
+.comment-group {
+    display: flex;
+    flex-direction: row;
+}

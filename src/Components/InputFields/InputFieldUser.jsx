@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import InputFieldPet from './InputFieldPet';
 // ALGO ACA ME ESTA ANULANDO LA ANIMACION DE QUE SE MUEVA EL LABEL
 
 
@@ -59,47 +60,15 @@ const InputFieldUser = () => {
                         <header>Paso 2: Completa tu perfil</header>
                         <p>Contanos un poco sobre tus mascotas. </p>
                     </div>
-                    {formValues.map((element, index) => (
-                        <div className="row-a" key={index}>
-                            <div className="column-b left">
-                            <div className="input-box">
-                                <input 
-                                type="number" 
-                                className="input-field" 
-                                name="noPets"  // Asegúrate de especificar el name para cada input
-                                autoComplete="off" 
-                                value={element.noPets || ""}
-                                onChange={(e) => handleChange(index, e)}  // Pasar el índice y el evento
-                                />
-                                <label htmlFor="noPets">Cant</label>
-                            </div>
-                            </div>
-                            <div className="column-b middle">
-                            <div className="input-box">
-                                <select 
-                                type="text" 
-                                className="input-field" 
-                                name="pets"  // Asegúrate de especificar el name para cada input
-                                autoComplete="off" 
-                                value={element.pets || ""}
-                                onChange={(e) => handleChange(index, e)}  // Pasar el índice y el evento
-                                >
-                                    {/*<label htmlFor="pets">Mascota</label>*/}
-                                    <option value="">Mascota</option>
-                                    <option value="perro">Perro</option>
-                                    <option value="gato">Gato</option>
-                                    <option value="otro">Otro</option>
-                                </select>
-                            </div>
-                            </div>
-                            {
-                            index ? 
-                            
-                                <button type="button"  className="button remove column-b right" onClick={() => removeFormFields(index)}><FontAwesomeIcon icon={faTrashCan} /></button> 
-                            :  <button className="button add column-b right" type="button" onClick={() => addFormFields()}><FontAwesomeIcon icon={faPlus} /></button>
-                            }
-                        </div>
-                    ))}
+                    
+                    <InputFieldPet
+                        formValues={formValues}
+                        handleChange={handleChange}
+                        addFormFields={addFormFields}
+                        removeFormFields={removeFormFields}
+                    /> 
+
+                    
                     {/*<div className="forgot">
                         <section>
                             <a href="#" className="forgot-link">Forgot password?</a>

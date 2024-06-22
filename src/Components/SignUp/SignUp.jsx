@@ -22,8 +22,8 @@ const SignUp = () => {
                   </div>
                 </div>
                 <div className="column-form">
-                  <InputField />
-                  {/*<InputFieldUser /> */}
+                  {/*<InputField />*/}
+                  <InputFieldUser /> 
                   {/*<InputFieldPetsitter /> */}
                   
 

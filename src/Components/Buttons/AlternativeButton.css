@@ -20,7 +20,7 @@
 .btnAlternative:focus{
     /*border: 2px solid #FF5B1B; */
     font-weight: 800;
-    text-shadow: 2px 2px 3px #545454;
+    text-shadow: 1.5px 1.5px 1px #f0eaea;
 }
 
 .btnAlternative{

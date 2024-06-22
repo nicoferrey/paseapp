@@ -10,6 +10,10 @@ import imgpaseador from "../../images/about-petsitter.png";
 import Comment from "./Comment";
 import { IoIosClose } from "react-icons/io";
 import PetsButton from "../Buttons/PetsButton";
+import ModalRequestService from "./Modals/ModalRequestService";
+import ModalStatusService from "./Modals/ModalStatusService";
+import ModalReviewService from "./Modals/ModalReviewService";
+import AlternativeButton from "../Buttons/AlternativeButton";
 
 
 const ProductDetail = () => {
@@ -103,7 +107,25 @@ const ProductDetail = () => {
 
     const selectedItems = Object.keys(selectedButtons).filter(key => selectedButtons[key]);  //evuelve la clave de los valores true (seleccioandos)
 
+    // Modal Solicitud de Servicio
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalType, setModalType] = useState(null); // 'request' or 'status'
 
+    const openModal = (type) => {
+        setModalType(type);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setModalType(null);
+    };
+
+    const handleFormRequest = (formData) => {
+        // Aquí puedes manejar la lógica para enviar los datos del formulario
+        console.log('Datos del formulario:', formData);
+        closeModal(); // Cierra el modal después de enviar el formulario
+    };
 
     return ( 
         <div className="product-container">
@@ -115,17 +137,33 @@ const ProductDetail = () => {
                     <div className="circle-icon"><FaDog className="pet-icon" title="Perro" /></div>
                 </section> */}
                 <section className="pet-details">
-                    <h3 className="product-subtitle">Mascotas</h3>
-                    <PetsButton 
-                        item="Perro" 
-                        selected={selectedButtons.Perro} 
-                        onClick={() => handleButtonClick("Perro")}
-                    />
-                    <PetsButton 
-                        item="Gato" 
-                        selected={selectedButtons.Gato} 
-                        onClick={() => handleButtonClick("Gato")}
-                    />
+                    {/*<h3 className="product-subtitle">Mascotas</h3> */}
+                    {editable ? (
+                        <>
+                            <PetsButton 
+                                item="Perro" 
+                                selected={selectedButtons.Perro} 
+                                onClick={() => handleButtonClick("Perro")}
+                            />
+                            <PetsButton 
+                                item="Gato" 
+                                selected={selectedButtons.Gato} 
+                                onClick={() => handleButtonClick("Gato")}
+                            />
+                        </>
+                    ) : (
+                        <>
+                            <h3 className="product-subtitle">Mascotas</h3>
+                            <PetsButton 
+                                item="Perro" 
+                                selected={selectedButtons.Perro} 
+                            />
+                            <PetsButton 
+                                item="Gato" 
+                                selected={selectedButtons.Gato} 
+                            />
+                        </>
+                    )}
                 </section>
                 {editable ? (
                     <input type="text" defaultValue="" placeholder="Editable Field 1" className="product-edit-fields" maxLength={100}/>  // Placeholder if new, default if edit
@@ -150,7 +188,7 @@ const ProductDetail = () => {
                 <h3 className="product-subtitle">Caracteristicas servicio</h3>
                 <div className="product-info-table">
                     <div className="row-b">
-                        <div className="column-b">
+                        <div className="product-column-b">
                             <div className="line-vertical"></div>
                             <div className="characteristic-content">
                                 <p className="product-characteristic">Frecuencia</p>
@@ -173,7 +211,7 @@ const ProductDetail = () => {
                                 
                             </div>
                         </div>
-                        <div className="column-b">
+                        <div className="product-column-b">
                             <div className="line-vertical"></div>
                             <div className="characteristic-content">
                                 <p className="product-characteristic">Categoria</p>
@@ -195,7 +233,7 @@ const ProductDetail = () => {
                         </div>
                     </div>
                     <div className="row-b">
-                        <div className="column-b">
+                        <div className="product-column-b">
                             <div className="line-vertical"></div>
                             <div className="characteristic-content">
                                 <p className="product-characteristic">Zona</p>
@@ -215,7 +253,7 @@ const ProductDetail = () => {
                                 )}
                             </div>
                         </div>
-                        <div className="column-b">
+                        <div className="product-column-b">
                             <div className="line-vertical"></div>
                             <div className="characteristic-content">
                                 <p className="product-characteristic">Duracion</p>
@@ -273,11 +311,34 @@ const ProductDetail = () => {
                     <p className="petsitter petsitter-user">USUARIO XXYY</p>
 
                 </div>
-                {editable ? (
-                    <PrimaryButton value={"Guardar"} onClick={""}/>) 
-                : (
-                    <PrimaryButton value={"Solicitar"} onClick={""}/>
+                {modalType === 'review' && (
+                    <ModalReviewService
+                        isOpen={isModalOpen}
+                        closeModal={closeModal}
+                        handleSubmit={handleFormRequest}
+                    />
                 )}
+                {modalType === 'request' && (
+                    <ModalRequestService
+                        isOpen={isModalOpen}
+                        closeModal={closeModal}
+                        handleSubmit={handleFormRequest}
+                    />
+                )}
+                {editable ? (
+                    <>
+                        <PrimaryButton value={"GUARDAR"} onClick={""}/>
+                        <AlternativeButton value={"CANCELAR"} onClick={""}/>
+                    </>
+                ) : (
+                    <>
+                        <PrimaryButton value={"SOLICITAR"} onClick={() => openModal('request')} />
+                        <AlternativeButton value={"CANCELAR"} onClick={""}/>
+                    </>
+                    
+                )}
+                
+                
                 
             </aside>
             </div>
@@ -289,8 +350,8 @@ const ProductDetail = () => {
                 </div>
             </section>
             <h3 className="product-subtitle">Comentarios</h3>
-            <Comment user={"NICO"} stars={4.2} text={"LOLOLO"}/>
-            <Comment user={"NICOSSSS"} stars={4.2} text={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore"}/>
+            <Comment user={"NICO"} stars={4.2} text={"LOLOLO"} pending={true}/>
+            <Comment user={"NICOSSSS"} stars={4.2} text={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore"} pending={false}/>
 
 
         </div>

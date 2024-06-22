@@ -1,25 +1,23 @@
-import React, { useState } from "react";
-import Category from "./Category/Category";
-import Price from "./Price/Price";
-import Color from "./Color/Color";
+import React from "react";
+import CategoryFilter from "./Filters/CategoryFilter";
+import DateRangeFilter from "./Filters/DateRangeFilter";
+import FrequencyFilter from "./Filters/FrequencyFilter";
+import PetTypeFilter from "./Filters/PetTypeFilter";
+import RatingFilter from "./Filters/RatingFilter";
+import ZoneFilter from "./Filters/ZoneFilter";
 import "./Sidebar.css";
-import Filter from "./Filter";
 
-const Sidebar = ({ handleChange }) => {
-  const [filters, setFilters] = useState({});
+const Sidebar = ({ filters, setFilters }) => {
   return (
     <aside>
-
-    <div className="sidebar">
-      <Filter filters={filters} setFilters={setFilters} />
-    </div>
-      
-      <section className="sidebar">
-      
-        <Category handleChange={handleChange} />
-        <Price handleChange={handleChange} />
-        <Color handleChange={handleChange} />
-      </section>
+      <div className="sidebar">
+        <CategoryFilter filters={filters} setFilters={setFilters} />
+        <DateRangeFilter filters={filters} setFilters={setFilters} />
+        <FrequencyFilter filters={filters} setFilters={setFilters} />
+        <PetTypeFilter filters={filters} setFilters={setFilters} />
+        <RatingFilter filters={filters} setFilters={setFilters} />
+        <ZoneFilter filters={filters} setFilters={setFilters} />
+      </div>
     </aside>
   );
 };
