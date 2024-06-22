@@ -332,7 +332,7 @@ const ProductDetail = () => {
                     </>
                 ) : (
                     <>
-                        <PrimaryButton value={"SOLICITAR"} onClick={() => openModal('request')} />
+                        <PrimaryButton value={"SOLICITAR"} onClick={() => openModal('review')} />
                         <AlternativeButton value={"CANCELAR"} onClick={""}/>
                     </>
                     

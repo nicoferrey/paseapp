@@ -5,35 +5,16 @@ import { IoIosClose } from 'react-icons/io';
 import PrimaryButton from '../../Buttons/PrimaryButton';
 import AlternativeButton from '../../Buttons/AlternativeButton';
 import { FaStar, FaRegStar } from 'react-icons/fa';
+import StarRatingInput from '../../StarRating/StarRatingInput';
 
 const ModalReviewService = ({ isOpen, closeModal, handleSubmit }) => {
-    const [rating, setRating] = useState(0)
-    const [hoverValue, setHoverValue] = useState(0) // Estado para la puntuación de estrellas
+    const [rating, setRating] = useState(0);
     const [comment, setComment] = useState('');
-    const stars = Array(5).fill(0);
-    const colors = {
-        orange: "#F2C265",
-        grey: "a9a9a9"
-    };
-
-    const handleMouseOverStar = value => {
-        setHoverValue(value);
-    };
-    
-    const handleMouseLeaveStar = () => {
-        setHoverValue(0); // Vuelve a mostrar el valor seleccionado (0 si no se seleccionó nada)
-    };
-
-    const handleClickStar = value => {
-        setRating(value);
-        setHoverValue(0); // Al hacer clic, fija la puntuación y resetea el valor de hover
-    };
 
     const handleFormSubmit = () => {
-        // Aquí puedes manejar la lógica para enviar los datos del formulario
         const formData = {
-            rating: rating, // Incluir la puntuación en los datos a enviar
-            comment: comment  // Incluir el comentario en los datos a enviar
+            rating: rating,
+            comment: comment
         };
         handleSubmit(formData);
     };
@@ -57,20 +38,8 @@ const ModalReviewService = ({ isOpen, closeModal, handleSubmit }) => {
                             <div className="modal-row">
                                 <div className="characteristic-content">
                                     <p className="product-characteristic">¿Cómo estuvo el servicio?</p>
-                                    <div className="star-rating">
-                                    {stars.map((_, index) => {
-                                        return (
-                                            <FaStar
-                                                key={index}
-                                                size={24}
-                                                color={(hoverValue > index || rating > index) ? colors.orange : colors.grey}
-                                                onMouseOver={() => handleMouseOverStar(index + 1)}
-                                                onMouseLeave={handleMouseLeaveStar}
-                                                onClick={() => handleClickStar(index + 1)}
-                                            />
-                                        )
-                                    })}
-                                    </div>
+                                    {/* Usa el componente StarRating */}
+                                    <StarRatingInput rating={rating} onRatingChange={setRating} />
                                 </div>
                             </div>
                             <div className="modal-row">
@@ -79,7 +48,7 @@ const ModalReviewService = ({ isOpen, closeModal, handleSubmit }) => {
                                     <textarea
                                         value={comment}
                                         onChange={(e) => setComment(e.target.value)}
-                                        placeholder="Deja aca un comentario sobre el servicio."
+                                        placeholder="Deja aquí un comentario sobre el servicio."
                                         className="product-edit-fields"
                                         maxLength={1000}
                                         rows={6}

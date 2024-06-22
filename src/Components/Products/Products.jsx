@@ -2,11 +2,13 @@ import React from "react";
 import Card from "../Card/Card";
 import "./Products.css";
 
-const Products = ({ result }) => {
+const Products = ({ products }) => {
   return (
-    <>
-      <section className="card-container">{result}</section>
-    </>
+    <section className="card-container">
+      {products.map(product => (
+        <Card key={product.id} product={product} />
+      ))}
+    </section>
   );
 };
 

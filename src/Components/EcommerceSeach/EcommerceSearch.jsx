@@ -1,12 +1,16 @@
-import { useState } from "react";
-import Navigation from "../Navigation/Nav";
-import Products from "../Products/Products";
+// src/pages/EcommerceSearch.js
+import React, { useState } from "react";
 import products from "../../db/data";
-import Recommended from "../Recommended/Recommended";
-import Sidebar from "../Sidebar/Sidebar";
+import CategoryFilter from "./SidebarFilters/CategoryFilter";
+import DateRangeFilter from "./SidebarFilters/DateRangeFilter";
+import FrequencyFilter from "./SidebarFilters/FrequencyFilter";
+import PetTypeFilter from "./SidebarFilters/PetTypeFilter";
+import RatingFilter from "./SidebarFilters/RatingFilter";
+import ZoneFilter from "./SidebarFilters/ZoneFilter";
+import Card from "../Card/Card";
 import "./EcommerceSearch.css";
 
-function EcommerceSearch() {
+const EcommerceSearch = () => {
   const [filters, setFilters] = useState({
     categories: [],
     petTypes: [],
@@ -14,7 +18,7 @@ function EcommerceSearch() {
     dateRange: { start: '', end: '' },
     rating: 0,
     zones: [],
-    prices: []
+    query: ''
   });
 
   const applyFilters = (products, filters) => {
@@ -26,28 +30,46 @@ function EcommerceSearch() {
                              (!filters.dateRange.end || new Date(product.date) <= new Date(filters.dateRange.end));
       const ratingMatch = product.rating >= filters.rating;
       const zoneMatch = filters.zones.length === 0 || filters.zones.includes(product.zone);
-      const priceMatch = filters.prices.length === 0 || filters.prices.includes(product.price);
+      const queryMatch = product.name.toLowerCase().includes(filters.query.toLowerCase());
 
-      return categoryMatch && petTypeMatch && frequencyMatch && dateRangeMatch && ratingMatch && zoneMatch && priceMatch;
+      return categoryMatch && petTypeMatch && frequencyMatch && dateRangeMatch && ratingMatch && zoneMatch && queryMatch;
     });
   };
 
   const filteredProducts = applyFilters(products, filters);
 
-  const handleFilterChange = (newFilters) => {
-    setFilters(prevFilters => ({ ...prevFilters, ...newFilters }));
+  const handleFilterChange = (key, value) => {
+    setFilters(prevFilters => ({ ...prevFilters, [key]: value }));
   };
 
   return (
     <div className="ecommerce-search">
-      <Sidebar filters={filters} setFilters={handleFilterChange} />
+      <aside className="sidebar">
+        <h2>Filtros</h2>
+        <CategoryFilter filters={filters} setFilters={handleFilterChange} />
+        <DateRangeFilter filters={filters} setFilters={handleFilterChange} />
+        <FrequencyFilter filters={filters} setFilters={handleFilterChange} />
+        <PetTypeFilter filters={filters} setFilters={handleFilterChange} />
+        <RatingFilter filters={filters} setFilters={handleFilterChange} />
+        <ZoneFilter filters={filters} setFilters={handleFilterChange} />
+      </aside>
       <div className="main-content">
-        <Navigation query={filters.query} handleInputChange={(e) => handleFilterChange({ query: e.target.value })} />
-        <Recommended handleClick={handleFilterChange} />
-        <Products products={filteredProducts} />
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Buscar productos..."
+            value={filters.query}
+            onChange={(e) => handleFilterChange('query', e.target.value)}
+          />
+        </div>
+        <div className="product-list">
+          {filteredProducts.map(product => (
+            <Card key={product.id} product={product} />
+          ))}
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default EcommerceSearch;
