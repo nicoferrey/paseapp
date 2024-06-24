@@ -2,10 +2,19 @@ import './InputField.css';
 import React, { useState, useRef, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 // ALGO ACA ME ESTA ANULANDO LA ANIMACION DE QUE SE MUEVA EL LABEL
+import { getUsers, createUser, updateUser, deleteUser } from '../../services/userAPI';
 
 const isEmailValid = (email) => {
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailPattern.test(email);
+};
+
+const userData = {
+    name: 'Juan',
+    lastname: 'Pérez',
+    email: 'juan.perez@example.com',
+    password: 'password123',
+    address: 'Calle Principal 123',
 };
 
 
@@ -13,6 +22,7 @@ const InputField = () => {
     // Validacion de campos obligatorios
     const [formValues, setFormValues] = useState({});
     const [errors, setErrors] = useState({});
+    const [userType, setUserType] = useState('usuario'); // Estado para tipo de usuario
 
     const handleChange = (e) => {
         setFormValues({ ...formValues, [e.target.id]: e.target.value });
@@ -26,6 +36,26 @@ const InputField = () => {
             // Limpiar errores si el formulario es válido
             setErrors({});
         // Aquí podrías enviar los datos a través de una solicitud HTTP, por ejemplo.
+        } else {
+            setErrors(validationErrors);
+        }
+    };
+
+    const handleCreateUser = async (e) => {
+        e.preventDefault();
+        const validationErrors = validateForm(formValues);
+        console.log(formValues);
+        if (Object.keys(validationErrors).length === 0) {
+            try {
+                const response = await createUser(userData);
+                //setSuccessMessage(response.message);
+                // Limpiar formulario después de enviar
+                setFormValues({});
+                setErrors({});
+            } catch (error) {
+                console.error('Error al crear usuario:', error);
+                setErrors({ submit: 'Error al crear usuario' });
+            }
         } else {
             setErrors(validationErrors);
         }
@@ -59,12 +89,14 @@ const InputField = () => {
         return errors;
     };
 
-
+    const handleUserTypeChange = (type) => {
+        setUserType(type);
+    };
 
 
     return ( 
         <>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleCreateUser}>
             <div className="container-form">
                 <div className="login-box">
                     {/*<div className="login-header">
@@ -74,12 +106,22 @@ const InputField = () => {
                     <div className="row-a">
                         <div className="column-a">
                             <div className="input-box">
-                                <input type="submit" className="btn-usertype btn-usuario" value="SOY USUARIO" />
+                                <input
+                                    type="button"
+                                    className={`btn-usertype btn-usuario ${userType === 'usuario' ? 'active' : ''}`}
+                                    value="SOY USUARIO"
+                                    onClick={() => handleUserTypeChange('usuario')}
+                                />
                             </div>
                         </div>
                         <div className="column-a">
                             <div className="input-box">
-                                <input type="submit" className="btn-usertype btn-paseador" value="SOY PASEADOR" />
+                                <input
+                                    type="button"
+                                    className={`btn-usertype btn-paseador ${userType === 'paseador' ? 'active' : ''}`}
+                                    value="SOY PASEADOR"
+                                    onClick={() => handleUserTypeChange('paseador')}
+                                />
                             </div>
                         </div>
                     </div>

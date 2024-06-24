@@ -7,23 +7,23 @@ import InputFieldPetsitter from '../InputFields/InputFieldPetsitter';
 const SignUp = () => {
     return ( 
         <>
-          <div className="container-form">
-            <div className="form-box">
-              <div className="row-form">
-                <div className="column-form">
-                  <div className="header-form">
-                    <div className="underline-form"></div>
-                    <div className="text-form">SIGN UP</div>
+          <div className="container-signup-form">
+            <div className="form-signup-box">
+              <div className="row-signup-form">
+                <div className="column-signup-form">
+                  <div className="header-signup-form">
+                    <div className="underline-signup-form"></div>
+                    <div className="text-signup-form">SIGN UP</div>
                   </div>
-                  <div className="content-form">
+                  <div className="content-signup-form">
                     <img  src={imgPet1} alt="Mascota"/>
                     <p>Registrate acá para acceder a los mejores paseadores al alcance de tu mano</p>
-                    <div className="underline-form-2"></div>
+                    <div className="underline-signup-form-2"></div>
                   </div>
                 </div>
-                <div className="column-form">
-                  {/*<InputField />*/}
-                  <InputFieldUser /> 
+                <div className="column-signup-form">
+                  <InputField />
+                  {/*<InputFieldUser /> */}
                   {/*<InputFieldPetsitter /> */}
                   
 

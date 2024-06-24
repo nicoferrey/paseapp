@@ -7,7 +7,7 @@ const RatingFilter = ({ filters, setFilters }) => {
   const handleRatingChange = (rating) => {
     setFilters(prevFilters => ({
       ...prevFilters,
-      rating: rating === prevFilters.rating ? 0 : rating
+      rating: rating === prevFilters.rating ? 0 : rating // Toggle para desmarcar si ya estaba seleccionado
     }));
   };
 

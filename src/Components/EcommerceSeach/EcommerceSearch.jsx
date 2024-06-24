@@ -28,7 +28,7 @@ const EcommerceSearch = () => {
       const frequencyMatch = filters.frequencies.length === 0 || filters.frequencies.includes(product.frequency);
       const dateRangeMatch = (!filters.dateRange.start || new Date(product.date) >= new Date(filters.dateRange.start)) &&
                              (!filters.dateRange.end || new Date(product.date) <= new Date(filters.dateRange.end));
-      const ratingMatch = product.rating >= filters.rating;
+      const ratingMatch = filters.rating === 0 || product.rating >= filters.rating;
       const zoneMatch = filters.zones.length === 0 || filters.zones.includes(product.zone);
       const queryMatch = product.name.toLowerCase().includes(filters.query.toLowerCase());
 

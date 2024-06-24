@@ -248,13 +248,26 @@ button{
     margin: auto;
 }
 
-.btn-usertype{
+.btn-usertype {
     font-family: "Open Sans", sans-serif;
     font-size: 13px;
     color: #FFF;
-    background: #FF5B1B;
+    font-weight: 600;
     border: none;
     cursor: pointer;
+    outline: none; /* Eliminamos el contorno al enfocar */
+    transition: background-color 0.3s, border-color 0.3s; /* Transición suave */
+}
+
+.btn-usertype.active {
+    background: #FF5B1B;
+    border: none;
+}
+
+.btn-usertype:not(.active) {
+    background: none;
+    border: 1px solid #FF5B1B; /* Borde naranja */
+    color: #FF5B1B;
 }
 
 .btn-usuario{
